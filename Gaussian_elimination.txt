@@ -1,0 +1,59 @@
+% Gaussian elimination code - determinany
+
+w = 1;                  % Determinant - starting value
+
+% input row/column size, of matrix n x n                        
+n = input('Input row/column value of matrix: ');
+
+matrix = zeros(n,n);
+
+% inserting matrix elements
+for i = 1:n
+    for j = 1:n
+        disp('Row '); disp(i); disp(' and column '); disp(j); 
+        matrix(i,j) = input(' - value: ');
+    end
+end    
+
+% control matrix inserted by user
+% you can check the effect by det(b)
+b = matrix;
+
+%--------------------------------------------------------------------------
+
+% GAUSSIAN ELIMINATION
+
+for i = 1:(n-2)                       % until matrix 2x2
+    if (matrix(i,i) == 0)             % swap rows if 0 is here
+        for j = (i+1):n               
+            if(matrix(j,i) ~= 0)          
+                r = matrix(j, :);        
+                matrix(j, :) = matrix(i, :);
+                matrix(i, :) = r;   % when finded non 0 value - swap 
+                break               % and break
+            end    
+        end                           
+    end
+    a = matrix(i,i);                  % element from main diagonal
+    if (a == 0)                       % if all columns are 0
+        w = 0;                        % determinan is 0
+        break
+    end
+    w = a*w;                          % determinant
+    for j = (i+1):n                   % subtraction of rows
+        if(matrix(j,i) ~= 0)          % 0 == element conditional
+            k = matrix(j,i)/a;        % counting row multiplier
+            matrix(j, :) = matrix(j, :) - k*matrix(i, :); %subtraction 
+        end                           % until last row
+    end                              
+end
+
+% determinant w * matrix determinant 2x2
+w = w*(matrix(n-1,n-1)*matrix(n,n) - matrix(n-1,n)*matrix(n,n-1));
+
+% final value
+disp('Determinant: ');
+disp(w);
+
+% Determinant check:
+% det(b)
