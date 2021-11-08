@@ -28,7 +28,7 @@ for i = 1:(n-2)                       % until matrix 2x2
         for j = (i+1):n               
             if(matrix(j,i) ~= 0)          
                 r = matrix(j, :);        
-                matrix(j, :) = matrix(i, :);
+                matrix(j, :) = -matrix(i, :);
                 matrix(i, :) = r;   % when finded non 0 value - swap 
                 break               % and break
             end    
